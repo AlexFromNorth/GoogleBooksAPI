@@ -10,7 +10,7 @@ const searchBooks = async (query, currentPage) => {
       `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${API_KEY}&startIndex=${startIndex}&maxResults=${RESULTS_PER_PAGE}`
     );
     // console.log(response.data.items);
-    return response.data.items;
+    return response.data;
     //   setTotalResults(response.data.totalItems);
 };
 

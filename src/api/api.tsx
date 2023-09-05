@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { findBooks } from '../store/todoSlice';
 
 const API_KEY = 'AIzaSyDc25tuyICvu7cjAzeU81MvmaDzDDQI_eU'; // Замените 'YOUR_API_KEY' на свой ключ API Google Books
-const RESULTS_PER_PAGE = 10; // Количество результатов на одной странице
+const RESULTS_PER_PAGE = 20; // Количество результатов на одной странице
 
 const GoogleBooksSearch = () => {
   const [query, setQuery] = useState('книга');
