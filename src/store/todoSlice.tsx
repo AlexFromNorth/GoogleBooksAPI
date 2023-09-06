@@ -1,58 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const API_KEY = "AIzaSyDc25tuyICvu7cjAzeU81MvmaDzDDQI_eU"; // Замените 'YOUR_API_KEY' на свой ключ API Google Books
-const RESULTS_PER_PAGE = 10; // Количество результатов на одной странице
-
-const searchBooks = async (query, currentPage) => {
-    const startIndex = (currentPage - 1) * RESULTS_PER_PAGE;
-    const response = await axios.get(
-      `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${API_KEY}&startIndex=${startIndex}&maxResults=${RESULTS_PER_PAGE}`
-    );
-    // console.log(response.data.items);
-    return response.data;
-    //   setTotalResults(response.data.totalItems);
-};
+import { searchBooks } from "../actions/searchBooks";
 
 const todoSlice = createSlice({
   name: "todos",
   initialState: {
-    // todos: [],
-    books: [123],
+    todos: [123,3,5],
+    books: [2,4,6],
+    totalItems: 0,
+    test: 0
   },
   reducers: {
-    findBooks(state, action) {
-      // state.books=[]
-      // console.log(state.books[0])
+    async findBooks(state, action) {
+      searchBooks(action.payload.query, action.payload.page)
+      .then(response=>{
+        state.books = response.items
+        state.totalItems = response.totalItems
+        // console.log(response.totalItems)
+      })
 
-      searchBooks("азбука", 1)
-      .then((result)=>{
-        console.log(result)
-      })
-      .catch((error)=>{
-        console.log(error)
-      })
-      // console.log(state.books[0])
-      // state.books=[action.payload]
+      // console.log(action.payload.page)
+      // state.books=(await searchBooks(action.payload.query, action.payload.page)).items
+
+      // state.totalItems=(await searchBooks(action.payload.query, action.payload.page)).totalItems
+      // console.log(state.books);
+      // console.log(state.totalItems);
     },
-    // addTodo(state, action) {
-    //   state.todos.push({
-    //     id: new Date().toISOString(),
-    //     text: action.payload.text,
-    //     completed: false,
-    //   });
-    // },
-    // removeTodo(state, action) {
-    //     state.todos = state.todos.filter(todo => todo.id !== action.payload.id)
-    // },
-    // toggleTodoComplete(state, action) {
-    //     const toggledTodo = state.todos.find(todo => todo.id === action.payload.id)
-    //     toggledTodo.completed = !toggledTodo.completed
-    // },
+    test(state, action) {
+     state.test= 23
+    },
   },
 });
 
-// export const { addTodo, removeTodo, toggleTodoComplete } = todoSlice.actions;
-export const { findBooks } = todoSlice.actions;
+export const { findBooks, test } = todoSlice.actions;
 
 export default todoSlice.reducer;

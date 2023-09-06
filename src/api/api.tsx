@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { findBooks } from '../store/todoSlice';
+import { findBooks, test } from '../store/todoSlice';
 
 const API_KEY = 'AIzaSyDc25tuyICvu7cjAzeU81MvmaDzDDQI_eU'; // Замените 'YOUR_API_KEY' на свой ключ API Google Books
 const RESULTS_PER_PAGE = 20; // Количество результатов на одной странице
@@ -54,7 +54,8 @@ const GoogleBooksSearch = () => {
           </button>
         ))}
       </div>
-      <input type="button" value="btn" onClick={() => dispatch(findBooks())}/>
+      <input type="button" value="btn" onClick={() => dispatch(findBooks({query:"азбука",page: '1'}))}/>
+      {/* <input type="button" value="btn" onClick={() => dispatch(test())}/> */}
     </div>
   );
 };
